@@ -33,7 +33,7 @@ pipeline {
             steps {
                 bat '''
                 mvn clean verify sonar:sonar \
-                -Dsonar.projectKey=LoginAutomationTest_PoojaK \
+                -Dsonar.projectKey=Maven_AutomationTesting \
                 -Dsonar.sources=src/main/java \
                 -Dsonar.tests=src/test/java \
                 -Dsonar.jacoco.reportPaths=target/jacoco.exec \
