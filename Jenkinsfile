@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'sonar-maven' 
+        maven 'sonar-maven'  // Ensure that Maven is configured in Jenkins
     }
 
     environment {
@@ -28,7 +28,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             environment {
-                SONAR_TOKEN = credentials('sonar-token')
+                SONAR_TOKEN = credentials('sonar-token')  // Ensure that the token is saved as a Jenkins credential
             }
             steps {
                 bat '''
