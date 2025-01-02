@@ -67,26 +67,21 @@
                 <configuration>
                     <useModulePath>false</useModulePath>
                     <includes>
-                        <include>**/LoginAutomationTest.java</include> <!-- Ensure the test file is included -->
+                        <include>**/HelloControllerTest.java</include> <!-- Ensure the test file is included -->
+                        <include>**/LoginAutomationTest.java</include> <!-- Include the Selenium test as well -->
                     </includes>
                 </configuration>
             </plugin>
 
-            <!-- JaCoCo plugin for code coverage -->
+            <!-- Maven Coverage Plugin for code coverage -->
             <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.8</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>coverage-maven-plugin</artifactId>
+                <version>0.1.2</version>
                 <executions>
                     <execution>
                         <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>prepare-package</phase>
-                        <goals>
+                            <goal>instrument</goal>
                             <goal>report</goal>
                         </goals>
                     </execution>
