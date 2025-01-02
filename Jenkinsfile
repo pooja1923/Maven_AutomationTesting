@@ -2,11 +2,11 @@ pipeline {
     agent any
 
     tools {
-        maven 'sonar-maven'  // Ensure that Maven is configured in Jenkins
+        maven 'sonar-maven' 
     }
 
     environment {
-        SONAR_SCANNER_PATH = "C:\\Users\\Pooja\\Downloads\\sonar-scanner-cli-6.2.1.4610-windows-x64\\sonar-scanner-6.2.1.4610-windows-x64\\bin"
+        SONAR_TOKEN = credentials('sonar-token') // Ensure you have this credential set in Jenkins
     }
 
     stages {
@@ -19,28 +19,33 @@ pipeline {
         stage('Build and Test') {
             steps {
                 script {
-                    bat '''
-                    mvn clean install
-                    '''
+                    bat 'mvn clean verify'
                 }
             }
         }
 
         stage('SonarQube Analysis') {
-            environment {
-                SONAR_TOKEN = credentials('sonar-token')  // Ensure that the token is saved as a Jenkins credential
-            }
             steps {
-                bat '''
-                mvn clean verify sonar:sonar \
-                -Dsonar.projectKey=Maven_AutomationTesting \
-                -Dsonar.sources=src/main/java \
-                -Dsonar.tests=src/test/java \
-                -Dsonar.jacoco.reportPaths=target/jacoco.exec \
-                -Dsonar.inclusions=**/*.java \
-                -Dsonar.host.url=http://localhost:9000 \
-                -Dsonar.login=%SONAR_TOKEN%
-                '''
+                script {
+                    bat '''
+                    mvn sonar:sonar \
+                    -Dsonar.projectKey=LoginAutomationTest_PoojaK \
+                    -Dsonar.sources=src \
+                    -Dsonar.tests=src/test/java \
+                    -Dsonar.jacoco.reportPaths=target/site/jacoco/jacoco.xml \
+                    -Dsonar.inclusions=**/*.java \
+                    -Dsonar.host.url=http://localhost:9000 \
+                    -Dsonar.login=%SONAR_TOKEN%
+                    '''
+                }
+            }
+        }
+
+        stage('Publish Coverage Report') {
+            steps {
+                // Assuming you have coverage reporting logic here
+                echo 'Publishing coverage report...'
+                // Add your coverage report logic here if needed
             }
         }
     }
