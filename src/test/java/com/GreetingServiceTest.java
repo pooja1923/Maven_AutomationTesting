@@ -1,16 +1,25 @@
 package com;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-class GreetingServiceTest {  // No 'public' modifier on the class
+@SpringBootTest
+public class GreetingServiceTest {
 
-    private final GreetingService greetingService = new GreetingService();
+    @Autowired
+    private GreetingService greetingService;
 
     @Test
-    void testGetWelcomeMessage() {  // No 'public' modifier on the method
-        assertEquals("Code is deployed in Code Deploy Again", greetingService.getWelcomeMessage());
+    public void testGetWelcomeMessage() {
+        String result = greetingService.getWelcomeMessage();
+        assertEquals("Code is deployed in Code Deploy Again", result);
     }
 
-    // Add more test methods as needed
+    @Test
+    public void testGetGoodbyeMessage() {
+        String result = greetingService.getGoodbyeMessage();
+        assertEquals("Goodbye! See you next time!", result);
+    }
 }
