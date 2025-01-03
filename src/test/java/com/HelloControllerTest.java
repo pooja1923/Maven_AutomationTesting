@@ -1,8 +1,11 @@
+package com;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ContextConfiguration;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
@@ -11,11 +14,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.HelloController;
-import com.HelloService;
-
 @WebMvcTest(HelloController.class)
-@ContextConfiguration(classes = Application.class)  // Add this to load the application context
+@ContextConfiguration(classes = Application.class)  // Add this for loading your application context
 class HelloControllerTest {
 
     @Autowired
@@ -28,7 +28,7 @@ class HelloControllerTest {
     void testWelcome() throws Exception {
         when(helloService.getWelcomeMessage()).thenReturn("Code is deployed in Code Deploy Again");
 
-        mockMvc.perform(get("/api/welcome").accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/welcome").accept(MediaType.APPLICATION_JSON))  // Using MediaType for JSON
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Code is deployed in Code Deploy Again")));
     }
@@ -37,7 +37,7 @@ class HelloControllerTest {
     void testGoodbye() throws Exception {
         when(helloService.getGoodbyeMessage()).thenReturn("Goodbye! See you next time!");
 
-        mockMvc.perform(get("/api/goodbye").accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/goodbye").accept(MediaType.APPLICATION_JSON))  // Using MediaType for JSON
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Goodbye! See you next time!")));
     }
