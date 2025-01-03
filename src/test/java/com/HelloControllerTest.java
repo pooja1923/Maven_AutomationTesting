@@ -2,7 +2,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
@@ -11,11 +11,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.HelloController;  
-import com.HelloService;  
+import com.HelloController;
+import com.HelloService;
 
 @WebMvcTest(HelloController.class)
-public class HelloControllerTest {  // Removed the 'public' modifier
+@ContextConfiguration(classes = Application.class)  // Add this to load the application context
+class HelloControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -24,7 +25,7 @@ public class HelloControllerTest {  // Removed the 'public' modifier
     private HelloService helloService;
 
     @Test
-    void testWelcome() throws Exception {  // Removed the 'public' modifier
+    void testWelcome() throws Exception {
         when(helloService.getWelcomeMessage()).thenReturn("Code is deployed in Code Deploy Again");
 
         mockMvc.perform(get("/api/welcome").accept(MediaType.APPLICATION_JSON))
@@ -33,7 +34,7 @@ public class HelloControllerTest {  // Removed the 'public' modifier
     }
 
     @Test
-    void testGoodbye() throws Exception {  // Removed the 'public' modifier
+    void testGoodbye() throws Exception {
         when(helloService.getGoodbyeMessage()).thenReturn("Goodbye! See you next time!");
 
         mockMvc.perform(get("/api/goodbye").accept(MediaType.APPLICATION_JSON))
