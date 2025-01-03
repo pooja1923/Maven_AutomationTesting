@@ -1,4 +1,4 @@
-import com.*;
+package com;
 import org.springframework.stereotype.Service;
 
 @Service
