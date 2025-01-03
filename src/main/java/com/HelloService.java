@@ -1,4 +1,4 @@
-import com.example.automation.CustomException;
+import com;
 import org.springframework.stereotype.Service;
 
 @Service
