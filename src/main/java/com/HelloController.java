@@ -9,8 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class HelloController {
 
+    private final HelloService helloService;
+
+    // Constructor Injection
     @Autowired
-    private HelloService helloService;
+    public HelloController(HelloService helloService) {
+        this.helloService = helloService;
+    }
 
     @GetMapping("/welcome")
     public String welcome() {
@@ -20,14 +25,5 @@ public class HelloController {
     @GetMapping("/goodbye")
     public String goodbye() {
         return helloService.getGoodbyeMessage();
-    }
-
-    @GetMapping("/error")
-    public String error() {
-        try {
-            return helloService.simulateError();
-        } catch (CustomException e) {
-            return "Error: " + e.getMessage();
-        }
     }
 }
