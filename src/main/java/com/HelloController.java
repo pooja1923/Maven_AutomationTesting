@@ -25,4 +25,15 @@ public class HelloController {
     public String goodbye() {
         return helloService.getGoodbyeMessage();
     }
+
+    @GetMapping("/hello")
+    public String hello() {
+        return helloService.getHelloMessage();
+    }
+
+    // This method will trigger an exception to test the GlobalExceptionHandler
+    @GetMapping("/throwException")
+    public String throwException() throws Exception {
+        throw new Exception("Test Exception");
+    }
 }
