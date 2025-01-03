@@ -15,7 +15,7 @@ import com.HelloController;
 import com.HelloService;
 
 @WebMvcTest(HelloController.class)
-@SpringBootApplication(classes = Application.class)  // Add this to load the application context
+@ContextConfiguration(classes = Application.class)  // Add this to load the application context
 class HelloControllerTest {
 
     @Autowired
