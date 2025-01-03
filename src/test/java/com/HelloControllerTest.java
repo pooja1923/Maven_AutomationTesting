@@ -1,11 +1,9 @@
 package com;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -21,15 +19,12 @@ public class HelloControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Mock
-    private GreetingService greetingService;
-
-    @InjectMocks
-    private HelloController helloController;
+    @MockBean
+    private HelloService helloService;
 
     @Test
     public void testWelcome() throws Exception {
-        when(greetingService.getWelcomeMessage()).thenReturn("Code is deployed in Code Deploy Again");
+        when(helloService.getWelcomeMessage()).thenReturn("Code is deployed in Code Deploy Again");
 
         mockMvc.perform(get("/api/welcome").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -38,7 +33,7 @@ public class HelloControllerTest {
 
     @Test
     public void testGoodbye() throws Exception {
-        when(greetingService.getGoodbyeMessage()).thenReturn("Goodbye! See you next time!");
+        when(helloService.getGoodbyeMessage()).thenReturn("Goodbye! See you next time!");
 
         mockMvc.perform(get("/api/goodbye").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
