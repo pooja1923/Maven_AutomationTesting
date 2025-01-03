@@ -9,25 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class HelloController {
 
-    private final HelloService helloService;
-
     @Autowired
-    public HelloController(HelloService helloService) {
-        this.helloService = helloService;
-    }
+    private GreetingService greetingService;
 
     @GetMapping("/welcome")
     public String welcome() {
-        return helloService.getWelcomeMessage();
+        return greetingService.getWelcomeMessage();
     }
 
     @GetMapping("/goodbye")
     public String goodbye() {
-        return helloService.getGoodbyeMessage();
-    }
-
-    @GetMapping("/error")
-    public String error() {
-        throw new CustomException("Custom error occurred!");
+        return greetingService.getGoodbyeMessage();
     }
 }
