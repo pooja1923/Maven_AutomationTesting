@@ -30,9 +30,8 @@ pipeline {
                     bat '''
                     mvn sonar:sonar \
                     -Dsonar.projectKey=Maven_AutomationTesting \
-                    -Dsonar.sources=src \
+                    -Dsonar.sources=src/main/java \
                     -Dsonar.tests=src/test/java \
-                    -Dsonar.jacoco.reportPaths=target/site/jacoco/jacoco.xml \
                     -Dsonar.inclusions=**/*.java \
                     -Dsonar.host.url=http://localhost:9000 \
                     -Dsonar.login=%SONAR_TOKEN%
