@@ -1,5 +1,3 @@
-package com;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -14,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(HelloController.class)
-public class HelloControllerTest {
+class HelloControllerTest {  // Removed the 'public' modifier
 
     @Autowired
     private MockMvc mockMvc;
@@ -23,7 +21,7 @@ public class HelloControllerTest {
     private HelloService helloService;
 
     @Test
-    public void testWelcome() throws Exception {
+    void testWelcome() throws Exception {  // Removed the 'public' modifier
         when(helloService.getWelcomeMessage()).thenReturn("Code is deployed in Code Deploy Again");
 
         mockMvc.perform(get("/api/welcome").accept(MediaType.APPLICATION_JSON))
@@ -32,7 +30,7 @@ public class HelloControllerTest {
     }
 
     @Test
-    public void testGoodbye() throws Exception {
+    void testGoodbye() throws Exception {  // Removed the 'public' modifier
         when(helloService.getGoodbyeMessage()).thenReturn("Goodbye! See you next time!");
 
         mockMvc.perform(get("/api/goodbye").accept(MediaType.APPLICATION_JSON))
