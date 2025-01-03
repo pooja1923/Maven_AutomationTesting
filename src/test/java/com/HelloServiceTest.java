@@ -26,6 +26,7 @@ class HelloServiceTest {
 
     @Test
     void testSimulateError() {
+        // Ensure the CustomException is thrown
         CustomException thrown = assertThrows(CustomException.class, () -> {
             helloService.simulateError();
         });
