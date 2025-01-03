@@ -10,7 +10,11 @@
     <packaging>jar</packaging>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
+        <spring.boot.version>2.7.5</spring.boot.version>
+        <selenium.version>4.14.0</selenium.version>
+        <webdrivermanager.version>5.5.3</webdrivermanager.version>
+        <junit.jupiter.version>5.10.0</junit.jupiter.version>
     </properties>
 
     <dependencies>
@@ -18,12 +22,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>2.7.5</version>
+            <version>${spring.boot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>2.7.5</version>
+            <version>${spring.boot.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -31,13 +35,13 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.10.0</version>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.10.0</version>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -45,53 +49,59 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.14.0</version>
+            <version>${selenium.version}</version>
         </dependency>
 
         <!-- WebDriverManager for Dynamic Driver Management -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>5.5.3</version>
+            <version>${webdrivermanager.version}</version>
         </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Maven Surefire Plugin for running JUnit tests -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
-                <configuration>
-                    <useModulePath>false</useModulePath>
-                    <includes>
-                        <include>**/HelloControllerTest.java</include> <!-- Ensure the test file is included -->
-                        <include>**/LoginAutomationTest.java</include> <!-- Include the Selenium test as well -->
-                    </includes>
-                </configuration>
-            </plugin>
 
-            <!-- Maven Surefire Report Plugin to generate test reports -->
+            <!-- Spring Boot Maven Plugin -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>3.0.0-M5</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
                 <executions>
                     <execution>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
+                        <goals><goal>repackage</goal></goals>
                     </execution>
                 </executions>
             </plugin>
 
-            <!-- SonarQube Maven Plugin for Code Analysis -->
+            <!-- Maven Surefire Plugin for running JUnit tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version><!-- Update to the latest version if needed -->
+                <!-- Configuration can be added here if necessary -->
+            </plugin>
+
+            <!-- Jenkins Coverage Plugin for code coverage reporting -->
+            <plugin>
+                <groupId>org.jenkinsci.plugins.coverage</groupId>
+                <artifactId>coverage-plugin</artifactId>
+                <version>1.16.1</version><!-- Use the latest version available -->
+                <!-- Additional configuration can be added here if required -->
+            </plugin>
+
+             <!-- SonarQube Maven Plugin for Code Analysis -->
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>3.9.1.2184</version>
-            </plugin>
+            </plugin>         
+
         </plugins>
+
     </build>
+
 </project>
+
