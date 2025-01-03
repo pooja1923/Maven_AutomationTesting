@@ -2,15 +2,15 @@ package com;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
-@WebMvcTest
+@SpringBootTest
 class GlobalExceptionHandlerTest {
 
     @Autowired
@@ -26,6 +26,6 @@ class GlobalExceptionHandlerTest {
     @Test
     void testHandleOtherExceptions() throws Exception {
         mockMvc.perform(get("/api/nonExistentEndpoint"))
-                .andExpect(status().isNotFound()); // Update with appropriate status for not found endpoints
+                .andExpect(status().isNotFound());
     }
 }
