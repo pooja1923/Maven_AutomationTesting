@@ -15,7 +15,7 @@ import com.HelloController;
 import com.HelloService;  
 
 @WebMvcTest(HelloController.class)
-class public HelloControllerTest {  // Removed the 'public' modifier
+public class HelloControllerTest {  // Removed the 'public' modifier
 
     @Autowired
     private MockMvc mockMvc;
