@@ -17,7 +17,7 @@ public class HelloService {
     }
 
     // A method to simulate an error
-    public String simulateError() {
+    public String simulateError() throws CustomException {
         throw new CustomException("Simulated service error!");
     }
 }
