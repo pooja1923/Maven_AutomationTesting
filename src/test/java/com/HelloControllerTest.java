@@ -11,6 +11,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.HelloController;  
+import com.HelloService;  
+
 @WebMvcTest(HelloController.class)
 class HelloControllerTest {  // Removed the 'public' modifier
 
