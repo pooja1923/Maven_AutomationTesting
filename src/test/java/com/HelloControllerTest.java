@@ -10,8 +10,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 @WebMvcTest(HelloController.class)
 class HelloControllerTest {
@@ -41,11 +41,18 @@ class HelloControllerTest {
     }
 
     @Test
-    void testHelloMessage() throws Exception {
+    void testHello() throws Exception {
         when(helloService.getHelloMessage()).thenReturn("Hello from AWS CodeDeploy Demo!");
 
         mockMvc.perform(get("/api/hello").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Hello from AWS CodeDeploy Demo!")));
+    }
+
+    @Test
+    void testThrowException() throws Exception {
+        mockMvc.perform(get("/api/throwException"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().string("Test error occurred: Test Exception: Custom Exception thrown"));
     }
 }
