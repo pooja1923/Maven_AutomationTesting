@@ -1,23 +1,32 @@
 package com;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.test.web.servlet.MockMvc;
 
-@ControllerAdvice
-@RestController
-public class GlobalExceptionHandler {
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleAllExceptions(Exception ex) {
-        return new ResponseEntity<>("An error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+@WebMvcTest
+class GlobalExceptionHandlerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Test
+    void testHandleAllExceptions() throws Exception {
+        mockMvc.perform(get("/api/throwException"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().string("Test error occurred: Test Exception: Custom Exception thrown"));
     }
 
-    // Handle TestException specifically
-    @ExceptionHandler(TestException.class)
-    public ResponseEntity<String> handleTestException(TestException ex) {
-        return new ResponseEntity<>("Test error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    @Test
+    void testHandleOtherExceptions() throws Exception {
+        mockMvc.perform(get("/api/nonExistentEndpoint"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().string("An error occurred: No mapping for GET /api/nonExistentEndpoint"));
     }
 }
