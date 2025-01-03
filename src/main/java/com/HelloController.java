@@ -14,11 +14,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-import org.springframework.context.annotation.ContextConfiguration; 
-import org.springframework.http.MediaType; 
-
 @WebMvcTest(HelloController.class)
-class HelloControllerTest {
+ublic class HelloControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -27,7 +24,7 @@ class HelloControllerTest {
     private HelloService helloService;
 
     @Test
-    void testWelcome() throws Exception {
+    public void testWelcome() throws Exception {
         when(helloService.getWelcomeMessage()).thenReturn("Code is deployed in Code Deploy Again");
 
         mockMvc.perform(get("/api/welcome").accept(MediaType.APPLICATION_JSON))
@@ -36,7 +33,7 @@ class HelloControllerTest {
     }
 
     @Test
-    void testGoodbye() throws Exception {
+    public void testGoodbye() throws Exception {
         when(helloService.getGoodbyeMessage()).thenReturn("Goodbye! See you next time!");
 
         mockMvc.perform(get("/api/goodbye").accept(MediaType.APPLICATION_JSON))
