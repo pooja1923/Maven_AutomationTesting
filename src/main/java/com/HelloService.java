@@ -17,6 +17,7 @@ public class HelloService {
     }
 
     // A method to simulate an error
+    @GetMapping("/error")
     public String simulateError() throws CustomException {
         throw new CustomException("Simulated service error!");
     }
