@@ -23,7 +23,11 @@ public class HelloController {
     }
 
     @GetMapping("/error")
-    public String simulateError() {
-        return helloService.simulateError();
+    public String error() {
+        try {
+            return helloService.simulateError();
+        } catch (CustomException e) {
+            return "Error: " + e.getMessage();
+        }
     }
 }
