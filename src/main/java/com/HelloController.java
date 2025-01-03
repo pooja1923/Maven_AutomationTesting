@@ -10,15 +10,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
     @Autowired
-    private GreetingService greetingService;
+    private HelloService helloService;
 
     @GetMapping("/welcome")
     public String welcome() {
-        return greetingService.getWelcomeMessage();
+        return helloService.getWelcomeMessage();
     }
 
     @GetMapping("/goodbye")
     public String goodbye() {
-        return greetingService.getGoodbyeMessage();
+        return helloService.getGoodbyeMessage();
+    }
+
+    @GetMapping("/error")
+    public String simulateError() {
+        return helloService.simulateError();
     }
 }
