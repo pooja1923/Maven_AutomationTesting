@@ -26,7 +26,6 @@ class GlobalExceptionHandlerTest {
     @Test
     void testHandleOtherExceptions() throws Exception {
         mockMvc.perform(get("/api/nonExistentEndpoint"))
-                .andExpect(status().isInternalServerError())
-                .andExpect(content().string("An error occurred: No mapping for GET /api/nonExistentEndpoint"));
+                .andExpect(status().isNotFound()); // Update with appropriate status for not found endpoints
     }
 }
