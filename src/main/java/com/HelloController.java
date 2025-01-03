@@ -31,9 +31,9 @@ public class HelloController {
         return helloService.getHelloMessage();
     }
 
-    // This method will trigger an exception to test the GlobalExceptionHandler
+    // This method will now throw a dedicated exception to test the GlobalExceptionHandler
     @GetMapping("/throwException")
-    public String throwException() throws Exception {
-        throw new Exception("Test Exception");
+    public String throwException() throws TestException {
+        throw new TestException("Test Exception: Custom Exception thrown");
     }
 }
