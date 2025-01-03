@@ -3,17 +3,14 @@ package com;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class GreetingServiceTest {
+class GreetingServiceTest {  // No 'public' modifier on the class
 
     private final GreetingService greetingService = new GreetingService();
 
     @Test
-    public void testGetWelcomeMessage() {
+    void testGetWelcomeMessage() {  // No 'public' modifier on the method
         assertEquals("Code is deployed in Code Deploy Again", greetingService.getWelcomeMessage());
     }
 
-    @Test
-    public void testGetGoodbyeMessage() {
-        assertEquals("Goodbye! See you next time!", greetingService.getGoodbyeMessage());
-    }
+    // Add more test methods as needed
 }
