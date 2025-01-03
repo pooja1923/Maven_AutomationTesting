@@ -39,4 +39,13 @@ class HelloControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Goodbye! See you next time!")));
     }
+
+    @Test
+    void testHelloMessage() throws Exception {
+        when(helloService.getHelloMessage()).thenReturn("Hello from AWS CodeDeploy Demo!");
+
+        mockMvc.perform(get("/api/hello").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Hello from AWS CodeDeploy Demo!")));
+    }
 }
